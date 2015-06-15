@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rango.models import Category
 from rango.models import Page
 
@@ -81,7 +81,7 @@ from rango.forms import PageForm
 def add_page(request, category_name_slug):
 
     try:
-        cat = Category.objects.get(slug=category_name_slug)
+        cat = Category.objects.get(slug= category_name_slug)
     except Category.DoesNotExist:
         cat = None
 
@@ -100,6 +100,6 @@ def add_page(request, category_name_slug):
     else:
         form = PageForm()
 
-    context_dict = {'form':form, 'category': cat}
+    context_dict = {'form':form, 'category': cat, 'category_name_slug': category_name_slug}
 
     return render(request, 'rango/add_page.html', context_dict)
